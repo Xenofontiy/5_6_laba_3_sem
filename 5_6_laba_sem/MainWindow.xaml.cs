@@ -21,6 +21,10 @@ namespace _5_6_laba_sem
     /// </summary>
     public partial class MainWindow : Window
     {
+        string Path_inf;
+        _Inf_struct _Inf_data = new _Inf_struct();
+        Inf__struct Inf_data = new Inf__struct();
+
         public struct _Inf_struct
         {
             public string category { get; set; }
@@ -29,17 +33,33 @@ namespace _5_6_laba_sem
             public int usefulness { get; set; }
         }
 
+        public struct Inf__struct
+        {
+            public List<_Inf_struct> inf;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+            Inf_data.inf = new List<_Inf_struct>();
 
+        }
 
-            int numer = 0;
-            string Path_inf = @"C:\Users\Xeno\Desktop\C#\4_laba_3_sem\4_laba_3_sem\Data.txt"; //забор инфы с файла
-            using (StreamReader sr = new StreamReader(Path_inf, System.Text.Encoding.Default))
-
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();              //Открытие окошка где происходит поиск
+            dlg.DefaultExt = ".txt";
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
             {
-                _Inf_struct Inf_data = new _Inf_struct();
+                Path_inf = dlg.FileName;
+            }
+            
+            int numer = 0;
+            using (StreamReader sr = new StreamReader(Path_inf, System.Text.Encoding.Default))  //чтение и разбивка по классам
+            {
+
                 string line, _line;
                 while ((line = sr.ReadLine()) != null)
                 {
@@ -48,22 +68,22 @@ namespace _5_6_laba_sem
                     {
                         if (numer == 0)
                         {
-                            Inf_data.category = _line.Substring(0, _line.IndexOf(":"));
+                            _Inf_data.category = _line.Substring(0, _line.IndexOf(":"));
                             ++numer;
                         }
                         else if (numer == 1)
                         {
-                            Inf_data.name = _line.Substring(0, _line.IndexOf(":"));
+                            _Inf_data.name = _line.Substring(0, _line.IndexOf(":"));
                             ++numer;
                         }
                         else if (numer == 2)
                         {
-                            Inf_data.pries = Convert.ToInt32(_line.Substring(0, _line.IndexOf(":")));
+                            _Inf_data.pries = Convert.ToInt32(_line.Substring(0, _line.IndexOf(":")));
                             ++numer;
                             _line = _line.Remove(0, (_line.IndexOf(":")) + 1);
 
 
-                            Inf_data.usefulness = Convert.ToInt32(_line);
+                            _Inf_data.usefulness = Convert.ToInt32(_line);
                             numer = 0;
 
                             _line = " ";
@@ -71,15 +91,10 @@ namespace _5_6_laba_sem
                         if (numer != 0)
                             _line = _line.Remove(0, (_line.IndexOf(":")) + 1);
                     }
-                    Console.WriteLine(Inf_data.category + ':' + Inf_data.name + ':' + Inf_data.pries + ':' + Inf_data.usefulness);
-                    Console.ReadLine();
+                    Inf_data.inf.Add(_Inf_data);
+                    Food_List_ListView.Items.Add(_Inf_data.category + ':' + _Inf_data.name + ':' + _Inf_data.pries + ':' + _Inf_data.usefulness);
                 }
             }
         }
-
-            
-
-        
-    
     }
 }

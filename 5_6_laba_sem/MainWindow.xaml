@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_5_6_laba_sem"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="525" Width="785">
     <Grid>
-        
+        <Label Content="Список продуктов" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,25,0,0"/>
+        <Label Content="Максимальная цена:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,70,0,0"/>
+        <Label Content="Оптимальный список" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="546,25,0,0"/>
+
+        <ListView x:Name="Food_List_ListView" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="200" Margin="35,70,0,0">
+            
+        </ListView>
+        <ListView HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="200" Margin="510,70,0,0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <TextBox x:Name="Max_prise" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="124" Margin="300,120,0,0"/>
+
+        <Button Content="Загрузка даных" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="80,400,0,0" Height="42" Click="Button_Click"/>
+        <Button Content="Найти" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="325,175,0,0"/>
+
     </Grid>
 </Window>

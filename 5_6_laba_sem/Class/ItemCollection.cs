@@ -12,14 +12,14 @@ namespace _5_6_laba_sem.Class
         public int TotalUsefulness;
         public int TotalPrice;
 
-        public void AddItem(Inf_struct item, int quantity)
+        public void AddItem(Inf_class item, int quantity)
         {
-            if (Contents.ContainsKey((item.category + item.name))) 
-                Contents[(item.category + item.name)] += quantity;
+            if (Contents.ContainsKey((item.Category + item.Name))) 
+                Contents[(item.Category + item.Name)] += quantity;
             else 
-                Contents[(item.category + item.name)] = quantity;
-            TotalUsefulness += quantity * item.usefulness;
-            TotalPrice += quantity * item.price;
+                Contents[(item.Category + item.Name)] = quantity;
+            TotalUsefulness += quantity * item.Usefulness;
+            TotalPrice += quantity * item.Price;
         }
 
         public ItemCollection Copy()

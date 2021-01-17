@@ -63,8 +63,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Class\Inf_struct.cs" />
-    <Compile Include="Class\ItemCollection Copy.cs" />
+    <Compile Include="Class\Inf_Interface.cs" />
+    <Compile Include="Class\IInf_class.cs" />
     <Compile Include="Class\ItemCollection.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

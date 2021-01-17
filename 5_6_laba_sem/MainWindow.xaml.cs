@@ -14,7 +14,7 @@ namespace _5_6_laba_sem
     {
         string Path_inf; int Max_Prise, quantity, numer_;
         _Inf_struct _Inf_data = new _Inf_struct();
-        List<Inf_struct> Inf_data = new List<Inf_struct>();
+        List<Inf_Interface> Inf_data = new List<Inf_Interface>();
 
 
 
@@ -83,12 +83,14 @@ namespace _5_6_laba_sem
                             if (numer != 0)
                                 _line = _line.Remove(0, (_line.IndexOf(":")) + 1);
                         }
-                        var Inf_data = new List<Inf_struct>()
+                        Inf_data.Add(item: new Inf_class() { category = _Inf_data._Inf_category, name = _Inf_data._Inf_name, price = _Inf_data._Inf_price, usefulness = _Inf_data._Inf_usefulness });
+                       /*var Inf_data = new List<Inf_class>()
                     {
-                       new Inf_struct(_Inf_data._Inf_category, _Inf_data._Inf_name, _Inf_data._Inf_price, _Inf_data._Inf_usefulness)
-                    };
-                        Food_List_ListView.Items.Add(_Inf_data._Inf_category + ':' + _Inf_data._Inf_name + ':' + _Inf_data._Inf_price + ':' + _Inf_data._Inf_usefulness);
+                       new Inf_class(_Inf_data._Inf_category, _Inf_data._Inf_name, _Inf_data._Inf_price, _Inf_data._Inf_usefulness)
+                    };*/
+                     //   Food_List_ListView.Items.Add(_Inf_data._Inf_category + ':' + _Inf_data._Inf_name + ':' + _Inf_data._Inf_price + ':' + _Inf_data._Inf_usefulness);
                     }
+                    Food_List_ListView.ItemsSource = Inf_data;
                 }
             }
             catch { };
@@ -96,7 +98,7 @@ namespace _5_6_laba_sem
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Basket_ListView.ItemsSource = null;
+           /* Basket_ListView.ItemsSource = null;
             try
             {
                 quantity = Convert.ToInt32(quantity_TextBox.Text);
@@ -122,14 +124,14 @@ namespace _5_6_laba_sem
                                 }
                             }
                         }
-                Basket_ListView.ItemsSource = ic;
+              //  Basket_ListView.ItemsSource = ic;
             }
             catch
             {
                 if (Food_List_ListView.ItemsSource == null) MessageBox.Show("Укажите текстовый файл");
                 else MessageBox.Show("Введите корректно числа");
             }
-
+           */
         }
     }
 }

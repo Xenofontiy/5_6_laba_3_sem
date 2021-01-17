@@ -13,13 +13,22 @@
         <Label Content="Мак.шт. товаров" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="304,148,0,0"/>
 
         <ListView x:Name="Food_List_ListView" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="200" Margin="35,70,0,0">
-            
+
 
         </ListView>
         <ListView x:Name="Basket_ListView" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="200" Margin="510,70,0,0"
                   >
-            
-
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="{Binding Contents}"/>
+                        <TextBlock Text=" : "/>
+                        <TextBlock Text="{Binding TotalUsefulness}"/>
+                        <TextBlock Text=" : "/>
+                        <TextBlock Text="{Binding TotalPrice}"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <TextBox x:Name="Max_prise_TextBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="124" Margin="300,120,0,0"/>
@@ -29,7 +38,7 @@
         <Button Content="Найти" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="325,227,0,0" Click="Button_Click_1"/>
 
         <TextBox x:Name="Test_TextBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="300,292,0,0"/>
-        
+
 
     </Grid>
 </Window>

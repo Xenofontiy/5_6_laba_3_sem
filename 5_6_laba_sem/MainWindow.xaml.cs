@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _5_6_laba_sem.Class;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,60 +21,21 @@ namespace _5_6_laba_sem
         public MainWindow()
         {
             InitializeComponent();
-        }   
+        }
 
 
         public struct _Inf_struct
         {
-            public string category { get; set; }
-            public string name { get; set; }
-            public int price { get; set; }
-            public int usefulness { get; set; }
+            public string _Inf_category { get; set; }
+            public string _Inf_name { get; set; }
+            public int _Inf_price { get; set; }
+            public int _Inf_usefulness { get; set; }
         }
 
-        class Inf_struct
-        {
-            public string category;
-            public string name;
-            public int price;
-            public int usefulness;
-
-            public Inf_struct(string _category, string _name, int _price, int _usefulness)
-            {
-                category = _category;
-                name = _name;
-                price = _price;
-                usefulness = _usefulness;
-            }
-        }
-
-        class ItemCollection
-        {
-            public Dictionary<string, int> Contents = new Dictionary<string, int>();
-            public int TotalUsefulness;
-            public int TotalPrice;
-
-            public void AddItem(Inf_struct item, int quantity)
-            {
-                if (Contents.ContainsKey((item.category + item.name))) Contents[(item.category + item.name)] += quantity;
-                else Contents[(item.category + item.name)] = quantity;
-                TotalUsefulness += quantity * item.usefulness;
-                TotalPrice += quantity * item.price;
-            }
-
-            public ItemCollection Copy()
-            {
-                var ic = new ItemCollection();
-                ic.Contents = new Dictionary<string, int>(this.Contents);
-                ic.TotalUsefulness = this.TotalUsefulness;
-                ic.TotalPrice = this.TotalPrice;
-                return ic;
-            }
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();              //Открытие окошка где происходит поиск
             dlg.DefaultExt = ".txt";
             Nullable<bool> result = dlg.ShowDialog();
@@ -82,7 +44,7 @@ namespace _5_6_laba_sem
                 Path_inf = dlg.FileName;
                 Food_List_ListView.Items.Clear();
             }
-            
+
             int numer = 0;
             using (StreamReader sr = new StreamReader(Path_inf, System.Text.Encoding.Default))      //чтение и разбивка по классам
             {
@@ -95,22 +57,22 @@ namespace _5_6_laba_sem
                     {
                         if (numer == 0)
                         {
-                            _Inf_data.category = _line.Substring(0, _line.IndexOf(":"));
+                            _Inf_data._Inf_category = _line.Substring(0, _line.IndexOf(":"));
                             ++numer;
                         }
                         else if (numer == 1)
                         {
-                            _Inf_data.name = _line.Substring(0, _line.IndexOf(":"));
+                            _Inf_data._Inf_name = _line.Substring(0, _line.IndexOf(":"));
                             ++numer;
                         }
                         else if (numer == 2)
                         {
-                            _Inf_data.usefulness = Convert.ToInt32(_line.Substring(0, _line.IndexOf(":")));
+                            _Inf_data._Inf_usefulness = Convert.ToInt32(_line.Substring(0, _line.IndexOf(":")));
                             ++numer;
                             _line = _line.Remove(0, (_line.IndexOf(":")) + 1);
 
 
-                            _Inf_data.price = Convert.ToInt32(_line);
+                            _Inf_data._Inf_price = Convert.ToInt32(_line);
                             numer = 0;
 
                             _line = " ";
@@ -119,17 +81,17 @@ namespace _5_6_laba_sem
                             _line = _line.Remove(0, (_line.IndexOf(":")) + 1);
                     }
                     var Inf_data = new List<Inf_struct>()
-                    { 
-                       new Inf_struct(_Inf_data.category, _Inf_data.name, _Inf_data.price, _Inf_data.usefulness)
+                    {
+                       new Inf_struct(_Inf_data._Inf_category, _Inf_data._Inf_name, _Inf_data._Inf_price, _Inf_data._Inf_usefulness)
                     };
-                    Food_List_ListView.Items.Add(_Inf_data.category + ':' + _Inf_data.name + ':' + _Inf_data.price + ':' + _Inf_data.usefulness);
+                    Food_List_ListView.Items.Add(_Inf_data._Inf_category + ':' + _Inf_data._Inf_name + ':' + _Inf_data._Inf_price + ':' + _Inf_data._Inf_usefulness);
                 }
             }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Basket_ListView.Items.Clear();
+            Basket_ListView.ItemsSource = null;
             try
             {
                 quantity = Convert.ToInt32(quantity_TextBox.Text);
@@ -141,7 +103,7 @@ namespace _5_6_laba_sem
             }
 
             ItemCollection[] ic = new ItemCollection[quantity + 1];
-            for (int i = 0; i <= quantity; i++) 
+            for (int i = 0; i <= quantity; i++)
                 ic[i] = new ItemCollection();
             for (int i = 0; i < Inf_data.Count; i++)
                 for (int j = quantity; j >= 0; j--)
@@ -152,11 +114,12 @@ namespace _5_6_laba_sem
                         {
                             ItemCollection lighterCollection = ic[j - k * Inf_data[i].price];
                             int testValue = lighterCollection.TotalUsefulness + k * Inf_data[i].usefulness;
-                            if (testValue > ic[j].TotalUsefulness)
+                            if (testValue > ic[j].TotalUsefulness) {
                                 (ic[j] = lighterCollection.Copy()).AddItem(Inf_data[i], k);
+                            }
                         }
                     }
-            Basket_ListView.ItemsSource=ic;
+            Basket_ListView.ItemsSource = ic;
 
         }
     }

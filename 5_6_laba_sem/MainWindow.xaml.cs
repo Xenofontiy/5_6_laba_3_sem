@@ -34,9 +34,13 @@ namespace _5_6_laba_sem
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            
             try
             {
+                Food_List_ListView.ItemsSource = null;
                 Food_List_ListView.Items.Clear();
+                Inf_data.Clear();
+
                 Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();              //Открытие окошка где происходит поиск
                 dlg.DefaultExt = ".txt";
                 dlg.Filter = "txt files (*.txt)|*.txt";

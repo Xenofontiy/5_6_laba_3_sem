@@ -12,10 +12,9 @@ namespace _5_6_laba_sem
     /// </summary>
     public partial class MainWindow : Window
     {
-        string Path_inf; int Max_Prise, quantity, numer_;
+        string Path_inf; public int quantity, numer_, Sum_Prise, Sum_Usefulness, Best_Prise, Best_Usefulness, Basket;
         _Inf_struct _Inf_data = new _Inf_struct();
-        List<Inf_Interface> Inf_data = new List<Inf_Interface>();
-
+        List<Inf_class> Inf_data = new List<Inf_class>();
 
 
         public MainWindow()
@@ -84,11 +83,7 @@ namespace _5_6_laba_sem
                                 _line = _line.Remove(0, (_line.IndexOf(":")) + 1);
                         }
                         Inf_data.Add(item: new Inf_class() { category = _Inf_data._Inf_category, name = _Inf_data._Inf_name, price = _Inf_data._Inf_price, usefulness = _Inf_data._Inf_usefulness });
-                       /*var Inf_data = new List<Inf_class>()
-                    {
-                       new Inf_class(_Inf_data._Inf_category, _Inf_data._Inf_name, _Inf_data._Inf_price, _Inf_data._Inf_usefulness)
-                    };*/
-                     //   Food_List_ListView.Items.Add(_Inf_data._Inf_category + ':' + _Inf_data._Inf_name + ':' + _Inf_data._Inf_price + ':' + _Inf_data._Inf_usefulness);
+                        ++numer_;
                     }
                     Food_List_ListView.ItemsSource = Inf_data;
                 }
@@ -96,42 +91,34 @@ namespace _5_6_laba_sem
             catch { };
         }
 
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-           /* Basket_ListView.ItemsSource = null;
+           Basket_ListView.ItemsSource = null;
             try
             {
-                quantity = Convert.ToInt32(quantity_TextBox.Text);
-                Max_Prise = Convert.ToInt32(Max_prise_TextBox.Text);
+                int _Sum_Prise=0, _Sum_Usefulness=0;
 
+                Backpack bp = new Backpack(Convert.ToInt32(Max_prise_TextBox.Text));
+                bp.MakeAllSets(Inf_data);
+                List<Inf_class> solve = bp.GetBestSet();
+                Basket_ListView.ItemsSource = solve;
 
-                ItemCollection[] ic = new ItemCollection[quantity + 1];
-                for (int i = 0; i <= quantity; i++)
-                    ic[i] = new ItemCollection();
-                for (int i = 0; i < Inf_data.Count; i++)
-                    for (int j = quantity; j >= 0; j--)
-                        if (j >= Inf_data[i].price)
-                        {
-                            int _Quantity = Math.Min(quantity, j / Inf_data[i].price);
-                            for (int k = 1; k <= _Quantity; k++)
-                            {
-                                ItemCollection lighterCollection = ic[j - k * Inf_data[i].price];
-                                int testValue = lighterCollection.TotalUsefulness + k * Inf_data[i].usefulness;
-                                if (testValue > ic[j].TotalUsefulness)
-                                {
-                                    (ic[j] = lighterCollection.Copy()).AddItem(Inf_data[i], k);
-                                    numer_ = j;
-                                }
-                            }
-                        }
-              //  Basket_ListView.ItemsSource = ic;
+                foreach (Inf_class _i in bp.GetBestSet()) 
+                {
+                    _Sum_Prise += _i.price;
+                    _Sum_Usefulness += _i.usefulness;
+                }
+
+                Sum_prise_TextBox.Text = Convert.ToString(_Sum_Prise);
+                Sum_Use_TextBox.Text = Convert.ToString(_Sum_Usefulness);
             }
             catch
             {
                 if (Food_List_ListView.ItemsSource == null) MessageBox.Show("Укажите текстовый файл");
                 else MessageBox.Show("Введите корректно числа");
             }
-           */
+
         }
     }
 }

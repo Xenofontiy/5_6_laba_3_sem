@@ -63,9 +63,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Class\Backpack.cs" />
     <Compile Include="Class\Inf_Interface.cs" />
     <Compile Include="Class\IInf_class.cs" />
-    <Compile Include="Class\ItemCollection.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
